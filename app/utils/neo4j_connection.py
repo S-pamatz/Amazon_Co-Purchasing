@@ -1,4 +1,3 @@
-# utils/db_connection.py
 from neo4j import GraphDatabase
 
 class Neo4jConnection:
@@ -30,3 +29,5 @@ class Neo4jConnection:
             if session is not None:
                 session.close()
         return response
+    def set_database(self, database):
+        self.database = database

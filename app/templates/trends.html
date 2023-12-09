@@ -9,21 +9,21 @@ Trends
     <h2>Trends</h2>
     <div class="row">
         <div class="col-md-6">
-            <h3>Best Selling Categories:</h3>
+            <h3>Top 100 Best Selling Categories:</h3>
             <div class="list-group" style="max-height: 400px; overflow-y: scroll;">
                 <!-- Dynamic list items for categories will be added here -->
                 {% for category in best_selling_categories %}
-                <a href="#" class="list-group-item list-group-item-action">{{ category.name }}</a>
+                <a href="#" class="list-group-item list-group-item-action">{{ category[0] }}: {{ category[1] }}</a> <!-- Displaying count and name for categories -->
                 {% endfor %}
             </div>
         </div>
         
         <div class="col-md-6">
-            <h3>Best Selling Authors:</h3>
+            <h3>Top 100 Best Selling Authors:</h3>
             <div class="list-group" style="max-height: 400px; overflow-y: scroll;">
                 <!-- Dynamic list items for authors will be added here -->
                 {% for author in best_selling_authors %}
-                <a href="#" class="list-group-item list-group-item-action">{{ author.name }}</a>
+                <a href="#" class="list-group-item list-group-item-action">{{ author[0] }}: {{ author[1] }}</a> <!-- Displaying count and name for authors -->
                 {% endfor %}
             </div>
         </div>

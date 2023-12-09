@@ -1,7 +1,9 @@
 # app/routes.py
 from flask import render_template, jsonify, request
-from app.utils.spark_neo4j_connector import create_spark_session, read_data_from_neo4j
-
+from app.utils.spark_neo4j_connector import create_spark_session, read_data_from_neo4j, cache_db, get_cached_data, execute_query
+from app.utils.neo4j_connection import Neo4jConnection
+from app.utils.CustomFunctions import *
+from app.utils.parsing_functions import *
 productsDb = "products"
 categoryDb = "categories"
 
@@ -88,8 +90,23 @@ def init_routes(app):
 
     @app.route('/trends')
     def CreateTrends():
-        
-        return render_template('trends.html')
+        url = "bolt://localhost:7687"
+        username = "neo4j"
+        password = "12345678"
+        neo4j_conn = Neo4jConnection(url, username, password)
+
+        # Retrieve data from the 'categories' database
+        listOftuples = retrieve_non_empty_asins(neo4j_conn, 'categories')
+
+        # Calculate data from the 'products' database
+        calculated_data = calculate_average_salesrank(neo4j_conn, listOftuples, 'products')
+        write_to_csv(calculated_data, "salesRanks.csv")
+        neo4j_conn.close()
+        best_selling_categories, best_selling_authors = parseBestSellingCategories("salesRanks.csv")
+        return render_template(
+            'trends.html',
+            best_selling_categories=best_selling_categories,
+            best_selling_authors=best_selling_authors)
 
 
 
@@ -99,52 +116,5 @@ def init_routes(app):
 
 
 
-def get_cached_data(db):
-    """
-    Retrieve a cached DataFrame for the specified database.
-    :param db: The database name.
-    :return: Cached Spark DataFrame.
-    """
-    return dataframe_cache.get(db)
 
-def execute_query(spark, df, query, db):
-    """
-    Execute a SQL query on a Spark DataFrame.
-    :param spark: Spark session.
-    :param df: Spark DataFrame to query.
-    :param query: SQL query string.
-    :return: Result of the query execution.
-    """
-    # Ensure the DataFrame is registered as a temp view
-    df.createOrReplaceTempView(db)
-
-    # Execute the query
-    result = spark.sql(query)
-
-    return result
-
-def cache_db(db=None):           
-    # Initialize Spark session
-    spark = create_spark_session()
-    
-    # Define Neo4j options (modify these options based on your Neo4j setup)
-    neo4j_options = {
-        "url": "bolt://localhost:7687",
-        "authentication.type": "basic",
-        "authentication.basic.username": "neo4j",
-        "authentication.basic.password": "12345678",
-        "relationship": "REVIEWED",
-        "relationship.nodes.map": "true",
-        "relationship.source.labels": "Customer",
-        "relationship.target.labels": "Product"
-    }
-
-    # Read data from Neo4j
-    df = read_data_from_neo4j(spark, neo4j_options, db)
-
-    # Perform some simple operations for testing
-    df.cache()
-    df.createOrReplaceTempView(db);
-    return spark, df
-    
     
