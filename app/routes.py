@@ -82,6 +82,23 @@ def init_routes(app):
         return render_template('data-query.html')
 
 
+
+
+
+
+    @app.route('/trends')
+    def CreateTrends():
+        
+        return render_template('trends.html')
+
+
+
+
+
+
+
+
+
 def get_cached_data(db):
     """
     Retrieve a cached DataFrame for the specified database.
