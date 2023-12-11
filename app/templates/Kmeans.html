@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+KMeans Clustering
+{% endblock %}
+
+{% block content %}
+    <h1>KMeans Clustering</h1>
+    <form method="POST" action="/Kmeans">
+        <input type="submit" value="Run KMeans" class="btn btn-primary">
+    </form>
+
+    {% if kmeans_results %}
+        <p>Silhouette Score: {{ kmeans_results.silhouette }}</p>
+        <p>Cluster Centers:</p>
+        <ul>
+            {% for center in kmeans_results.centers|sort %}
+                <li>{{ center }}</li>
+            {% endfor %}
+        </ul>
+        <p><strong>Silhouette Score:</strong></p>
+        <p>Achieved a Silhouette score of {{ kmeans_results.silhouette }}, indicating a reasonably good structure in the clustering.</p>
+        <p>This score suggests that the clusters are well-separated and distinct.</p>
+
+        <p>The clusters represent different segments of the market in terms of sales performance.</p>
+        <p><strong>Interpretation and Implications:</strong></p>
+        <p>Cluster 1 likely represents high-performing books, Cluster 2 represents moderately performing books, and Cluster 3 includes lower-performing books.</p>
+        <p>This clustering helps in understanding the distribution of book sales and can guide targeted marketing and stocking strategies.</p>
+    {% else %}
+        <p>No results available.</p>
+    {% endif %}
+
+{% endblock %}

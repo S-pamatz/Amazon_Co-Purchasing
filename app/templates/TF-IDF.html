@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+TF-IDF
+{% endblock %}
+
+{% block content %}
+    <h1>TF-IDF Vectorization Results</h1>
+
+    {% if request.method == 'POST' %}
+        <!-- Content to display for POST request -->
+        <div>
+            <!-- Display the bar chart -->
+            <img src="{{ url_for('static', filename=chart_filename) }}" alt="Bar Chart" class="img-fluid">
+        </div>
+    {% else %}
+        <!-- Content to display for GET request -->
+        <p>Click the button to generate TF-IDF results.</p>
+        <form method="post">
+            <button type="submit" class="btn btn-primary">Generate TF-IDF</button>
+        </form>
+    {% endif %}
+{% endblock %}

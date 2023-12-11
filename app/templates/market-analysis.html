@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Market Analysis</h1>
+    <p>Enter details below to perform the market analysis.</p>
+    <form action="/perform-analysis" method="post">
+        <div class="mb-3">
+            <label for="salesRankThreshold" class="form-label">Sales Rank Threshold</label>
+            <input type="number" class="form-control" id="salesRankThreshold" name="salesRankThreshold" placeholder="Enter sales rank threshold">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Analyze</button>
+    </form>
+
+    <!-- Place to display the results -->
+    <div id="results">
+        {% if data %}
+            <h2>Analysis Results</h2>
+            <h3>Top Selling Products by Group</h3>
+            <ul>
+            {% for group in data.top_selling %}
+                <li>Product Group: {{ group.product_group }}
+                    <ul>
+                    {% for title in group.top_selling_titles %}
+                        <li>{{ title }}</li>
+                    {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+            </ul>
+
+            <h3>Top Selling Products Within Sales Rank Threshold</h3>
+            <ul>
+            {% for group in data.top_selling_within_threshold %}
+                <li>Product Group: {{ group.product_group }}
+                    <ul>
+                    {% for title in group.top_selling_titles %}
+                        <li>{{ title }}</li>
+                    {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

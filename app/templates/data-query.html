@@ -8,20 +8,29 @@ Query Form
 <form method="post">
     <div class="form-group">
         <label for="queryInput">Query:</label>
-        <input type="text" class="form-control" id="queryInput" name="query" placeholder="Enter query">
+        <textarea class="form-control" id="queryInput" name="query" rows="4" placeholder="Enter query"></textarea> <!-- Changed to textarea for multi-line input -->
     </div>
-    <button type="submit" class="btn btn-primary" name="button" value="products">Products</button>
-    <button type="submit" class="btn btn-secondary" name="button" value="categories">Categories</button>
+    <button type="submit" class="btn btn-primary" name="button" value="products">products</button>
+    <button type="submit" class="btn btn-primary" name="button" value="customers">customers</button>
+    <button type="submit" class="btn btn-secondary" name="button" value="reviews">reviews</button>
+    <button type="submit" class="btn btn-secondary" name="button" value="similar">similar</button>
 </form>
 
 <div class="mt-4">
     <h3>Results:</h3>
-    <div class="list-group" style="max-height: 300px; margin-bottom: 10px; overflow:scroll; -webkit-overflow-scrolling: touch;">
+    <div class="list-group" style="max-height: 300px; margin-bottom: 10px; overflow: scroll; -webkit-overflow-scrolling: touch;">
         <!-- Dynamic list items will be added here -->
-        <!-- Example: -->
-        <a href="#" class="list-group-item list-group-item-action">Item 1</a>
-        <a href="#" class="list-group-item list-group-item-action">Item 2</a>
-        <!-- ... -->
+        {% if results %}
+            {% for row in results.collect() %}
+                <a href="#" class="list-group-item list-group-item-action">
+                    {% for column in results.columns %}
+                        <strong>{{ column }}:</strong> {{ row[column] }}<br>
+                    {% endfor %}
+                </a>
+            {% endfor %}
+        {% else %}
+            <p>No results to display.</p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
