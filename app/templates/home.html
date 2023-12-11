@@ -1,40 +1,43 @@
-{% extends "base.html" %}
-
-{% block content %}
-    <!-- Homepage Content -->
-    <section id="homepage">
-        <h2>Welcome to the Co-Purchasing Analytics Dashboard</h2>
-        <p>This dashboard provides insights into co-purchasing patterns, customer analysis, and more, using our comprehensive dataset of products. Explore various features to gain valuable business insights.</p>
-    </section>
-
-    <!-- Other Sections -->
-    <section id="data-overview">
-        <h3>Data Overview</h3>
-        <p>Our dataset includes a wide range of products, customer reviews, and purchasing patterns. Get a quick overview of the data we have on hand.</p>
-    </section>
-
-    <section id="complex-query">
-        <h3>Complex Query Interface</h3>
-        <p>Delve into the data with complex queries. Use our SQL-like interface to extract specific information and gain deeper insights.</p>
-    </section>
-
-    <section id="co-purchasing-pattern">
-        <h3>Co-Purchasing Pattern Analysis</h3>
-        <p>Understand how products are commonly purchased together, and identify potential opportunities for marketing and product placement.</p>
-    </section>
-
-    <section id="potential-customer">
-        <h3>Potential Customer Identification</h3>
-        <p>Identify potential customers based on co-purchasing patterns. Utilize this data for targeted marketing and sales strategies.</p>
-    </section>
-
-    <section id="reports-insights">
-        <h3>Reports and Insights</h3>
-        <p>Access detailed reports and insights derived from our data analysis. Understand market trends, customer preferences, and more.</p>
-    </section>
-
-    <section id="help-documentation">
-        <h3>Help/Documentation</h3>
-        <p>Need assistance? Check out our FAQ section, user manual, and examples of queries. For further support, contact our team.</p>
-    </section>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crimson Debuggers</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    {% extends 'base.html' %}
+    {% block content %}
+    <div class="container mt-4">
+        <h1 class="mb-4">Crimson Debuggers: Media Market Analysis Tool</h1>
+        <p>Explore market trends and uncover niche opportunities in the DVD, music, and book industry with our advanced data-driven platform.</p>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Features</h2>
+                <ul>
+                    <li><strong>KMeans Clustering:</strong> Segment market based on sales rank.</li>
+                    <li><strong>TF-IDF Analysis:</strong> Discover trending themes in book titles.</li>
+                    <li><strong>Sales Rank Analysis:</strong> Identify best-selling categories.</li>
+                    <li><strong>Market Analysis:</strong> Uncover high-demand products and niches.</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h2>Benefits</h2>
+                <ul>
+                    <li>Make informed stocking and marketing decisions.</li>
+                    <li>Understand reader interests and market trends.</li>
+                    <li>Target profitable niches with precision.</li>
+                    <li>Enhance your inventory management strategies.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
